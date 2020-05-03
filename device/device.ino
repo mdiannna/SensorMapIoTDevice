@@ -1,7 +1,17 @@
- #include "os.h"
+#include "os.h"
 #include "timer-api.h"
+#include "tasks.h"
 
-OS_TaskDescriptor_t task1;
+
+OS_TaskDescriptor_t tasks[NR_TASKS];
+int32_t taskRecurrences[5] = {1000, 1010, 1020, 1030, 1040};
+void (*fp[NR_TASKS])() = { 
+                    TaskGetTemperature, 
+                    TaskGetHumidity,
+                    TaskGetDustValue,
+                    TaskGetLightValue,
+                    TaskGetGasValue
+                };
 
 
 void timer_handle_interrupts(int timer) {
@@ -12,24 +22,33 @@ void SerialInit() {
 	Serial.begin(9600);
 }
 
-int PrintHelloTaskRun() {
-	Serial.println("Hello!");
-  return 0;
+
+void TasksInit() {
+   for(int i=0; i<NR_TASKS; i++) {
+    tasks[i] =  OS_TaskDescriptorDefault();
+    tasks[i].recurrence = taskRecurrences[i];
+
+    OS_TaskInit( (*fp[i]), &(tasks[i]) );
+   }
 }
-
-
 
 void setup() {
 	SerialInit();
+  // TODO: 
+  // TemperatureInit()
+  // HumidityInit();
+  // DustInit();
+  // LightInit();
+  // GasInit();
 
-  task1 = OS_TaskDescriptorDefault();
-	task1.recurrence = 1000; //1 second
-
-	OS_TaskInit( PrintHelloTaskRun, &task1 );
+  TasksInit();
 
   timer_init_ISR_1KHz(TIMER_DEFAULT);
 }
 
 void loop() {
-//	Serial.println(":)");
+  	Serial.println(":)");
+    delay(1000);
+    Serial.println("^^^^^");
+    delay(2000);
 }

@@ -12,7 +12,6 @@
 
 #include <Arduino.h>
 
-
 extern int data;
 
 void CommunicationInit();

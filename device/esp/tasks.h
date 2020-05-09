@@ -1,7 +1,7 @@
 #ifndef _TASKS_H_
 #define _TASKS_H_
 
-extern double lightLevel;
+#include "light.h"
 
 typedef struct Data_t
 {
@@ -9,6 +9,9 @@ typedef struct Data_t
     // char id;
     double light;
     double temperature;
+    double humidity;
+    double dust;
+    double gas;
 } GenericData_t;
 
 extern GenericData_t data;

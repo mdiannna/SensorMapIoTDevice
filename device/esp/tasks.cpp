@@ -2,7 +2,7 @@
 #include <Arduino.h>
 #include "mqtt.h"
 
-GenericData_t data = {0.0, 0.0};
+GenericData_t data = {0.0, 0.0, 0.0, 0.0, 0.0};
 
 double lightlevel = 0;
 
@@ -11,7 +11,7 @@ void CreateTasks() {
                     readLightTask,              /* Task function. */
                     "readLightTask",            /* String with name of task. */
                     10000,                     /* Stack size in words. */
-                    (void*)&lightLevel,       /* Parameter passed as input of the task */
+                    (void*)&data,       /* Parameter passed as input of the task */
                     1,                         /* Priority of the task. */
                     NULL);                     /* Task handle. */
  
@@ -19,7 +19,7 @@ void CreateTasks() {
                     sendDataTask,              /* Task function. */
                     "sendDataTask",            /* String with name of task. */
                     10000,                     /* Stack size in words. */
-                    (void*)&lightLevel,       /* Parameter passed as input of the task */
+                    (void*)&data,       /* Parameter passed as input of the task */
                     1,                         /* Priority of the task. */
                     NULL);                     /* Task handle. */
  
@@ -32,13 +32,11 @@ void readLightTask( void * parameter ){
     GenericData_t * data = (GenericData_t *) parameter;
 
     Serial.print("readLightTask: ");
-    int sensorValueA3 = analogRead(A3);
-    data->light = sensorValueA3 + 0.1;
-    Serial.println(sensorValueA3);
+    double lightValue = GetLight();
+    data->light = lightValue;
+    Serial.println(lightValue);
     delay(5000);
  }
-//    vTaskDelete( NULL );
- 
 }
 
 

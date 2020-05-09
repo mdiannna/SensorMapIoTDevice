@@ -2,19 +2,11 @@
 #define _TASKS_H_
 
 #include "light.h"
+#include "format_data.h"
 
-typedef struct Data_t
-{
-    // uint32_t ucData;
-    // char id;
-    double light;
-    double temperature;
-    double humidity;
-    double dust;
-    double gas;
-} GenericData_t;
+//Data_t GenericData_t;
 
-extern GenericData_t data;
+//extern GenericData_t data;
 
 void CreateTasks();
 void readLightTask( void * parameter );

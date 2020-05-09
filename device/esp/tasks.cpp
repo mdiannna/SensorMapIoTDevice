@@ -2,6 +2,8 @@
 #include <Arduino.h>
 #include "mqtt.h"
 
+GenericData_t data = {0.0, 0.0};
+
 double lightlevel = 0;
 
 void CreateTasks() {
@@ -27,9 +29,11 @@ void CreateTasks() {
 void readLightTask( void * parameter ){
  for(;;)  {
     
+    GenericData_t * data = (GenericData_t *) parameter;
+
     Serial.print("readLightTask: ");
     int sensorValueA3 = analogRead(A3);
-    *((double*)parameter) = sensorValueA3 + 0.1;
+    data->light = sensorValueA3 + 0.1;
     Serial.println(sensorValueA3);
     delay(5000);
  }
@@ -40,12 +44,14 @@ void readLightTask( void * parameter ){
 
 void sendDataTask(void *parameter) {
 
-  // (void) pvParameters;
+      // (void) pvParameters;
   for (;;)
   {
     String sensorTopic = "mytopic/test";
-    double message = *((double*)parameter);            
-    client.publish(sensorTopic, String("Value:") + String(message));
+    // double message = *((double*)parameter);
+     GenericData_t * data = (GenericData_t *) parameter;
+            
+    client.publish(sensorTopic, String("Value:") + String(data->light));
     delay(5000);
     // vTaskDelay(5000);  // one tick delay (15ms) in between reads for stability
   }

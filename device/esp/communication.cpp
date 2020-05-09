@@ -135,3 +135,8 @@ String ReceivePacket() {
 void SendHello() {
   SendPacket("Hello!", TYPE_HELLO);
 }
+
+
+void SendQueryData() {
+  SendPacket("QUERY_DATA", TYPE_QUERY_DATA);
+}

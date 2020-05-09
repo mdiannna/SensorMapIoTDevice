@@ -5,11 +5,9 @@
 #define MCU1_ID 0x22
 #define MCU2_ID 0x33
 
-#define TYPE_HELLO 2
-#define TYPE_QUERY_DATA 1
-#define COMMAND_SEND_SENSOR_DATA 1
-#define TYPE_SEND_DATA 4	
-#define SENSOR_DATA_CM 3
+#define TYPE_HELLO 1
+#define TYPE_QUERY_DATA 2
+#define TYPE_SEND_DATA 3
 
 #include <Arduino.h>
 

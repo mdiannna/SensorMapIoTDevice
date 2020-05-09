@@ -8,9 +8,11 @@
 
 #define DEVICE_ID 1
 
+int connection_established_esp = 0;
+
 OS_TaskDescriptor_t tasks[NR_TASKS];
 int32_t taskRecurrences[5] = {1000, 1010, 1020, 1030, 1040};
-void (*fp[NR_TASKS])() = { 
+int (*fp[NR_TASKS])() = { 
                     TaskGetTemperature, 
                     TaskGetHumidity,
                     TaskGetDustValue,
@@ -83,19 +85,14 @@ void SendDataJSON() {
 }
 
 void loop() {
-  Serial.println(":)");
-  Serial.println(temperature);
-
-  int command = ReceivePacket();
-  Serial.println("Received command:");
-  Serial.println(command);
+//  LED_Off();
+  int command_type = ReceivePacket();
+  Serial.println("Received command_type:");
+  Serial.println(command_type);
+//  LED_On();       
   
-  if(command==TYPE_QUERY_DATA) {
-    SendDataJSON();
-    LED_On();    
-    delay(1000);
-    LED_Off();   
-  }
-  SendHello();
+ 
+      SendDataJSON();
+      
   delay(1000);
 }

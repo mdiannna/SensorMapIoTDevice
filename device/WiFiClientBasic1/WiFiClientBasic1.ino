@@ -39,8 +39,8 @@ void setup()
 
 void loop()
 {
-    const uint16_t port = 4000;
-    const char * host = "127.0.0.1"; // ip or dns
+    const uint16_t port = 5000;
+    const char * host = "192.168.0.79"; // ip or dns
 //    const char * host = "192.168.1.1"; // ip or dns
 //    const uint16_t port = 1337;
 //    const char * host = "192.168.1.10"; // ip or dns
@@ -62,7 +62,8 @@ void loop()
     //uncomment this line to send an arbitrary string to the server
     //client.print("Send this data to the server");
     //uncomment this line to send a basic document request to the server
-    client.print("GET /index.html HTTP/1.1\n\n");
+//    client.print("GET /hello-esp HTTP/1.1\n\n");
+    client.print("POST /esp-test-post HTTP/1.1\n\n");
 
   int maxloops = 0;
 

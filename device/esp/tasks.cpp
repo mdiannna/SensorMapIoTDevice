@@ -1,7 +1,7 @@
 #include "tasks.h"
 
 
-GenericData_t gdata = {0.0, 0.0, 0.0, 0.0, 0.0};
+GenericData_t gdata = {1.1, 2.2, 3.3, 4.4, 5.6};
 
 
 void CreateTasks() {
@@ -12,13 +12,13 @@ void CreateTasks() {
                 (void*)&gdata,       /* Parameter passed as input of the task */
                 1,                         /* Priority of the task. */
                 NULL);                     /* Task handle. */
-//    xTaskCreate(
-//                readGasTask,              /* Task function. */
-//                "readGasTask",            /* String with name of task. */
-//                10000,                     /* Stack size in words. */
-//                (void*)&gdata,       /* Parameter passed as input of the task */
-//                1,                         /* Priority of the task. */
-//                NULL);                     /* Task handle. */
+    xTaskCreate(
+                readGasTask,              /* Task function. */
+                "readGasTask",            /* String with name of task. */
+                10000,                     /* Stack size in words. */
+                (void*)&gdata,       /* Parameter passed as input of the task */
+                1,                         /* Priority of the task. */
+                NULL);                     /* Task handle. */
 
     xTaskCreate(
                 sendDataTask,              /* Task function. */
@@ -42,20 +42,20 @@ void readLightTask( void * parameter ){
     delay(5000);
  }
 }
-//
-//void readGasTask( void * parameter ){
-// for(;;)  {
-//    
-//    GenericData_t * mdata = (GenericData_t *) parameter;
-//
-//    Serial.print("readGasTask: ");
-//    double gasValue = GetGasSensorValue();
-//    mdata->gas = gasValue;
-//    Serial.print("gas:");
-//    Serial.println(gasValue);
-//    delay(5000);
-// }
-//}
+
+void readGasTask( void * parameter ){
+ for(;;)  {
+    
+    GenericData_t * mdata = (GenericData_t *) parameter;
+
+    Serial.print("readGasTask: ");
+    double gasValue = GetGasSensorValue();
+    mdata->gas = gasValue;
+    Serial.print("gas:");
+    Serial.println(gasValue);
+    delay(5000);
+ }
+}
 
 
 void sendDataTask(void *parameter) {
@@ -63,6 +63,7 @@ void sendDataTask(void *parameter) {
       // (void) pvParameters;
   for (;;)
   {
+    client.loop();
   
 //    String sensorTopic = "mytopic/test";
     String sensorTopic= "sdata";
@@ -75,7 +76,7 @@ void sendDataTask(void *parameter) {
 
     String msg = "[" +CreateJSONItem("Light", mdata->light) + "]";
     client.publish(sensorTopic, msg);
-    delay(300);
+    delay(500);
     
     msg = "[" + CreateJSONItem("Temperature", mdata->temperature ) + "]";
     client.publish(sensorTopic, msg);

@@ -1,3 +1,11 @@
+/**
+ * This is the official EstMQTTClient library from 
+ * https://github.com/plapointe6/EspMQTTClient
+ * modified to work with secure connection explained here: 
+ *https://github.com/plapointe6/EspMQTTClient/issues/32
+ * **/
+
+
 #ifndef ESP_MQTT_CLIENT1_H
 #define ESP_MQTT_CLIENT1_H
 

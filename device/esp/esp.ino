@@ -24,7 +24,7 @@ void setup() {
 }
 
 void loop() {
-  client.loop();
+//  client.loop();
   // delay(1000);
 }
  

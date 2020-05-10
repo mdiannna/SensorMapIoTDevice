@@ -1,29 +1,32 @@
 #include "tasks.h"
-#include <Arduino.h>
-#include "mqtt.h"
-#include "format_data.h"
+
 
 GenericData_t gdata = {0.0, 0.0, 0.0, 0.0, 0.0};
 
-double lightlevel = 0;
 
 void CreateTasks() {
-	 xTaskCreate(
-                    readLightTask,              /* Task function. */
-                    "readLightTask",            /* String with name of task. */
-                    10000,                     /* Stack size in words. */
-                    (void*)&gdata,       /* Parameter passed as input of the task */
-                    1,                         /* Priority of the task. */
-                    NULL);                     /* Task handle. */
- 
- xTaskCreate(
-                    sendDataTask,              /* Task function. */
-                    "sendDataTask",            /* String with name of task. */
-                    10000,                     /* Stack size in words. */
-                    (void*)&gdata,       /* Parameter passed as input of the task */
-                    1,                         /* Priority of the task. */
-                    NULL);                     /* Task handle. */
- 
+    xTaskCreate(
+                readLightTask,              /* Task function. */
+                "readLightTask",            /* String with name of task. */
+                10000,                     /* Stack size in words. */
+                (void*)&gdata,       /* Parameter passed as input of the task */
+                1,                         /* Priority of the task. */
+                NULL);                     /* Task handle. */
+//    xTaskCreate(
+//                readGasTask,              /* Task function. */
+//                "readGasTask",            /* String with name of task. */
+//                10000,                     /* Stack size in words. */
+//                (void*)&gdata,       /* Parameter passed as input of the task */
+//                1,                         /* Priority of the task. */
+//                NULL);                     /* Task handle. */
+
+    xTaskCreate(
+                sendDataTask,              /* Task function. */
+                "sendDataTask",            /* String with name of task. */
+                10000,                     /* Stack size in words. */
+                (void*)&gdata,       /* Parameter passed as input of the task */
+                1,                         /* Priority of the task. */
+                NULL);                     /* Task handle. */
 }
 
 
@@ -39,6 +42,20 @@ void readLightTask( void * parameter ){
     delay(5000);
  }
 }
+//
+//void readGasTask( void * parameter ){
+// for(;;)  {
+//    
+//    GenericData_t * mdata = (GenericData_t *) parameter;
+//
+//    Serial.print("readGasTask: ");
+//    double gasValue = GetGasSensorValue();
+//    mdata->gas = gasValue;
+//    Serial.print("gas:");
+//    Serial.println(gasValue);
+//    delay(5000);
+// }
+//}
 
 
 void sendDataTask(void *parameter) {
@@ -46,7 +63,8 @@ void sendDataTask(void *parameter) {
       // (void) pvParameters;
   for (;;)
   {
-    String sensorTopic = "mytopic/test";
+//    String sensorTopic = "mytopic/test";
+    String sensorTopic= "sdata";
     // double message = *((double*)parameter);
      GenericData_t * mdata = (GenericData_t *) parameter;
             

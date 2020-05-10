@@ -2,17 +2,18 @@
 
 #include "led.h"
 
-String sensorTopic = "mytopic/test";
+//String sensorTopic = "mytopic/test";
+String sensorTopic = "sdata";
 int connection_established_arduino = 0;
 
 EspMQTTClient client(
   WSSID,
   WPASSWORD,
   MQTT_SERVER,  // MQTT Broker server ip
-  "",   // Can be omitted if not needed username
-  "",   // Can be omitted if not needed password
+  USER,   // Can be omitted if not needed username
+  PASSWORD,   // Can be omitted if not needed password
   "TestClient",     // Client name that uniquely identify your device
-  1883              // The MQTT port, default to 1883. this line can be omitted
+  MQTT_PORT
 );
 
 

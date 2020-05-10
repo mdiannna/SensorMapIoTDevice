@@ -1,15 +1,17 @@
 #ifndef _TASKS_H_
 #define _TASKS_H_
 
+#include <Arduino.h>
 #include "light.h"
 #include "format_data.h"
-
-//Data_t GenericData_t;
-
-//extern GenericData_t data;
+#include "mqtt.h"
+#include "MQ2.h"
 
 void CreateTasks();
+
+//Tasks:
 void readLightTask( void * parameter );
+void readGasTask( void * parameter );
 void sendDataTask(void *parameter);
 
 #endif

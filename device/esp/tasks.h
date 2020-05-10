@@ -13,5 +13,6 @@ void CreateTasks();
 void readLightTask( void * parameter );
 void readGasTask( void * parameter );
 void sendDataTask(void *parameter);
+void readTemperatureTask( void * parameter );
 
 #endif

@@ -19,6 +19,13 @@ void CreateTasks() {
                 (void*)&gdata,       /* Parameter passed as input of the task */
                 1,                         /* Priority of the task. */
                 NULL);                     /* Task handle. */
+    xTaskCreate(
+                readTemperatureTask,              /* Task function. */
+                "readTemperatureTask",            /* String with name of task. */
+                10000,                     /* Stack size in words. */
+                (void*)&gdata,       /* Parameter passed as input of the task */
+                1,                         /* Priority of the task. */
+                NULL);
 
     xTaskCreate(
                 sendDataTask,              /* Task function. */
@@ -39,7 +46,7 @@ void readLightTask( void * parameter ){
     double lightValue = GetLight();
     mdata->light = lightValue;
     Serial.println(lightValue);
-    delay(5000);
+    delay(4000);
  }
 }
 
@@ -53,7 +60,22 @@ void readGasTask( void * parameter ){
     mdata->gas = gasValue;
     Serial.print("gas:");
     Serial.println(gasValue);
-    delay(5000);
+    delay(4000);
+ }
+}
+
+
+void readTemperatureTask( void * parameter ){
+ for(;;)  {
+    
+    GenericData_t * mdata = (GenericData_t *) parameter;
+
+    Serial.print("readGasTask: ");
+    double gasValue = GetGasSensorValue();
+    mdata->temperature = gasValue;
+    Serial.print("temperature:");
+    Serial.println(gasValue);
+    delay(4000);
  }
 }
 

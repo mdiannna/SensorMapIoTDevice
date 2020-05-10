@@ -33,8 +33,8 @@ void onConnectionEstablished()
   // });
 
   // Publish a message to "mytopic/test"
-  client.publish(sensorTopic, "Hello--"); // You can activate the retain flag by setting the third parameter to true
-
+  client.publish(sensorTopic, "[{\"boxId\": 1, \"sensorType\": \"Light\" ,\"sensorValue\": 0.00}]"); // You can activate the retain flag by setting the third parameter to true
+  delay(500);
   // Execute delayed instructions
   // client.executeDelayed(5 * 1000, []() {
   //   client.publish("mytopic/test", "This is a message sent 5 seconds later");
@@ -48,4 +48,5 @@ void InitMQTT() {
   client.enableDebuggingMessages(); // Enable debugging messages sent to serial output
   client.enableHTTPWebUpdater(); // Enable the web updater. User and password default to values of MQTTUsername and MQTTPassword. These can be overrited with enableHTTPWebUpdater("user", "password").
   client.enableLastWillMessage("TestClient/lastwill", "I am going offline");  // You can activate the retain flag by setting the third parameter to true
+//  client.mWifiClient.setFingerprint(fingerprint);
 }

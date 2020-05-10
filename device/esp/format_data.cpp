@@ -2,9 +2,9 @@
 #define DEVICE_ID 1
 
 String CreateJSONItem(String sensorType, double value) {
-  String result = " { \"boxID\": "+ String(DEVICE_ID)
+  String result = "{ \"boxId\": "+ String(DEVICE_ID)
   + ", \"sensorType\": \"" + String(sensorType) +"\" " +
-  + ",\"value\": " + String(value) + "}"; 
+  + ",\"sensorValue\": " + String(value) + "}"; 
  
   return result;
 }
@@ -12,11 +12,11 @@ String CreateJSONItem(String sensorType, double value) {
 
 String FormatDataJSON(Data_t * ffdata) {
   String result = "[" 
-  + CreateJSONItem("temperature", ffdata->temperature) + "," 
-  + CreateJSONItem("humidity", ffdata->humidity)+ ","
-  + CreateJSONItem("light", ffdata->light) + ","
-  + CreateJSONItem("gas", ffdata->gas) + ","
-  + CreateJSONItem("dust", ffdata->dust) + ","
+  + CreateJSONItem("Temperature", ffdata->temperature) + "," 
+  + CreateJSONItem("Humidity", ffdata->humidity)+ ","
+  + CreateJSONItem("Light", ffdata->light) + ","
+  + CreateJSONItem("Gas", ffdata->gas) + ","
+  + CreateJSONItem("Dust", ffdata->dust) + ","
   + "]";
   return result;
 }

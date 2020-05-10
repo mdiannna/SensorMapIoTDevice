@@ -63,6 +63,7 @@ void sendDataTask(void *parameter) {
       // (void) pvParameters;
   for (;;)
   {
+  
 //    String sensorTopic = "mytopic/test";
     String sensorTopic= "sdata";
     // double message = *((double*)parameter);
@@ -72,27 +73,26 @@ void sendDataTask(void *parameter) {
 //    String msg = FormatDataJSON(mdata);
 //    Serial.println(msg);
 
-    String msg = "[" +CreateJSONItem("light", mdata->light) + "]";
+    String msg = "[" +CreateJSONItem("Light", mdata->light) + "]";
     client.publish(sensorTopic, msg);
-    delay(150);
+    delay(300);
     
-    msg = "[" + CreateJSONItem("temperature", mdata->temperature ) + "]";
+    msg = "[" + CreateJSONItem("Temperature", mdata->temperature ) + "]";
     client.publish(sensorTopic, msg);
-    delay(150);
+    delay(300);
 
-
-    msg = "[" + CreateJSONItem("humidity", mdata->humidity ) + "]";
+    msg = "[" + CreateJSONItem("Humidity", mdata->humidity ) + "]";
     client.publish(sensorTopic, msg);
-    delay(150);
+    delay(300);
     
-    msg = "[" + CreateJSONItem("gas", mdata->gas ) + "]";
+    msg = "[" + CreateJSONItem("Gas", mdata->gas ) + "]";
     client.publish(sensorTopic, msg);
-    delay(150);
+    delay(300);
 
 
-    msg = "[" + CreateJSONItem("dust", mdata->dust ) + "]";
+    msg = "[" + CreateJSONItem("Dust", mdata->dust ) + "]";
     client.publish(sensorTopic, msg);
-    delay(150);
+    delay(300);
     
     delay(5000);
     // vTaskDelay(5000);  // one tick delay (15ms) in between reads for stability

@@ -1,22 +1,19 @@
 #include "temperature.h"
 
-
-DHT dht(DHTPIN, DHTTYPE);
-
-
-void InitTemperature() {
-    dht.begin();
+void InitTemperatureSensor() {
+	if(TEMPERATURE_SENSOR == "BMP180") {
+		InitTemperatureSensorBMP();
+	}
+	else if(TEMPERATURE_SENSOR == "DHT11") {
+		InitTemperatureDHT();
+	}
 }
 
-float GetTemperature() {
-  // Read temperature as Celsius (the default)
-    float t = dht.readTemperature();
-    // for humidity:
-     // float h = dht.readHumidity();
-    if (isnan(t)) {
-      Serial.println(F("Failed to read from DHT sensor!"));
-      return -1;
-    }
-    // else
-  return t;
+double GetTemperature() {
+	if(TEMPERATURE_SENSOR == "BMP180") {
+		return GetTemperatureBMP();
+	}
+	else if(TEMPERATURE_SENSOR == "DHT11") {
+		return GetTemperatureDHT();
+	}
 }

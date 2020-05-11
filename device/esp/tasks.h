@@ -6,6 +6,7 @@
 #include "format_data.h"
 #include "mqtt.h"
 #include "MQ2.h"
+#include "temperature.h"
 
 void CreateTasks();
 

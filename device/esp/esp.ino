@@ -7,6 +7,7 @@ double lightLevel = 0.0;
 #include "tasks.h"
 #include "light.h"
 #include "MQ2.h"
+#include "temperature.h"
 
 void InitSerial() {
   Serial.begin(112500);
@@ -17,6 +18,7 @@ void setup() {
   InitMQTT();
   InitLight();
   InitGasSensor();
+  InitTemperatureSensor();
   
   delay(1000);
   

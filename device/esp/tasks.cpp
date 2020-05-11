@@ -71,10 +71,10 @@ void readTemperatureTask( void * parameter ){
     GenericData_t * mdata = (GenericData_t *) parameter;
 
     Serial.print("readGasTask: ");
-    double gasValue = GetGasSensorValue();
-    mdata->temperature = gasValue;
+    double temperatureValue = GetTemperature();
+    mdata->temperature = temperatureValue;
     Serial.print("temperature:");
-    Serial.println(gasValue);
+    Serial.println(temperatureValue);
     delay(4000);
  }
 }

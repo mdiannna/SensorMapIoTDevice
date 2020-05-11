@@ -7,5 +7,5 @@ void InitGasSensor() {
 
 double GetGasSensorValue() {
   int sensorValue = analogRead(GAS_SENSOR_PIN);
-  return sensorValue + 0.0;
+  return sensorValue/100 + 0.0;
 }
